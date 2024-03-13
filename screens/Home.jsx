@@ -165,21 +165,27 @@ export default function Home(props) {
 
             {/*declaramos el contenedor principal*/}
             <View style={styles.container}>
-                <View style={{ flex: 1, flexDirection: "row", padding: 20 }}>
-                    <Text style={styles.titleMesas}>Mesas</Text>
-                    <TouchableOpacity onPress={handleLogout}>
-                        <Image
-                            source={require("../assets/gastromanager2.png")}
-                            style={styles.logo}
-                        />
-                    </TouchableOpacity>
-                </View>
+            <View style={{ flex: 1, flexDirection: "row", padding: 10 }}>
+  <Text style={styles.titleMesas}>Mesas</Text>
+  <TouchableOpacity onPress={handleLogout}>
+    <Image
+      source={require("../assets/gastromanager2.png")}
+      style={styles.logo}
+    />
+  </TouchableOpacity>
+</View>
                 <View style={styles.container2}>
                     {/*declaramos las pestañas y asignamos a cada una la vista correspondiente*/}
-                    <Tab.Navigator>
-                        <Tab.Screen name="Mesas Disponibles" component={MesasDisponibles} />
-                        <Tab.Screen name="Mis Mesas" component={MisMesas} />
-                    </Tab.Navigator>
+                    <Tab.Navigator
+  screenOptions={{
+    tabBarActiveTintColor: 'white',
+    tabBarInactiveTintColor: 'white',
+    tabBarStyle: { backgroundColor: 'transparent' },
+  }}
+>
+  <Tab.Screen name="Mesas Disponibles" component={MesasDisponibles} />
+  <Tab.Screen name="Mis Mesas" component={MisMesas} />
+</Tab.Navigator>
                 </View>
             </View>
         </ImageBackground>
