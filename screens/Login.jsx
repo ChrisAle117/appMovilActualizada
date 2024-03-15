@@ -133,6 +133,8 @@ const Login = () => {
         flex: 1,
         justifyContent: "center",
         padding: 20,
+        
+
       },
   
       backgroundImage: {
@@ -185,14 +187,16 @@ const Login = () => {
       logo: {
         width: 60,
         height: 60,
+        marginRight: 10,
+        marginStart: 30,
       },
   
       titleGastromanager: {
         color: "rgba(255, 255, 255, 100)",
         fontSize: 35,
         fontWeight: "bold",
-        marginLeft: 15,
-        marginRight: "20%",
+       // marginLeft: 15,
+        //marginRight: "20%",
         marginTop: 5,
       },
     });
