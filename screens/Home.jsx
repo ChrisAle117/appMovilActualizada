@@ -27,21 +27,29 @@ function MesasDisponibles() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch(url + '/mesas/active/')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Hubo un error en la petición');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log(data);  
-            setData(data.data);
-        })
-        .catch(error => {
-            console.error(error);
-            Alert.alert('Error', 'Hubo un error al obtener las mesas. Por favor, intenta de nuevo más tarde.');
-        });
+    const fetchMesas = () => {
+        fetch(url + '/mesas/active/')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Hubo un error en la petición');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);  
+                setData(data.data);
+            })
+            .catch(error => {
+                console.error(error);
+                Alert.alert('Error', 'Hubo un error al obtener las mesas. Por favor, intenta de nuevo más tarde.');
+            });
+    };
+
+    fetchMesas(); // Fetch immediately
+
+    const intervalId = setInterval(fetchMesas, 10000); // Fetch every 10 seconds
+
+    return () => clearInterval(intervalId); // Clean up on component unmount
 }, []);
 
 
@@ -78,15 +86,15 @@ function MesasDisponibles() {
             style={styles.backgroundImage} >
             <SafeAreaView style={styles.container4}>
             <SectionList
-    sections={data ? [{ title: 'Mesa', data: [data] }] : []}
+    sections={data ? data.map((item, index) => ({ title: 'Mesa ' + (index + 1), data: [item] })) : []}
     keyExtractor={(item, index) => item + index}
     renderItem={({ item }) => (
                         <View style={styles.formContainer}>
                             <View style={styles.container3}>
                                 <View style={styles.column}>
-                                       <Text>Mesa {data?.numeroMesa}</Text>
-                                       <Text>Número de sillas: {data?.numeroSillas}</Text>
-                                       <Text>Estado: {data?.estado}</Text>
+                                <Text style={styles.titleNumMesa}>Mesa {item.numeroMesa}</Text>
+                                <Text style={styles.titleNombreMesa}>Estado: {item.estado}</Text>
+                                <Text style={styles.titleNombreMesa}>Número de sillas: {item.numeroSillas}</Text>
                                 </View>
                                 <View style={styles.column}>
                                     <Image
@@ -108,63 +116,82 @@ function MesasDisponibles() {
     );
 }
 
+
+
+
+
+
 function MisMesas() {
-
+  const {url} = Backend();
   const navigation = useNavigation();
-    const DATA = [
-        {
-            title: '1',
-            data: ['Mesa 1'],
-        },
-        {
-            title: '2',
-            data: ['Mesa 2'],
-        },
-    ];
+  const [data, setData] = useState(null);
 
-    const IrMenu = () => navigation.navigate("Menu");
-    const IrPedido = () => navigation.navigate("Pedido");
+  useEffect(() => {
+    const fetchMesas = () => {
+        fetch(url + '/mesas/desactive/')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Hubo un error en la petición');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);  
+                setData(data.data);
+            })
+            .catch(error => {
+                console.error(error);
+                Alert.alert('Error', 'Hubo un error al obtener las mesas. Por favor, intenta de nuevo más tarde.');
+            });
+    };
 
-    return (
-      
-        <ImageBackground
-            source={require("../assets/fondo2.png")}
-            style={styles.backgroundImage}
-        >
-            <SafeAreaView style={styles.container4}>
-                <SectionList
-                    sections={DATA}
-                    keyExtractor={(item, index) => item + index}
-                    renderItem={({ item }) => (
-                        <View style={styles.formContainer2}>
-                            <View style={styles.container3}>
-                                <View style={styles.column}>
-                                    <Text style={styles.titleNumMesa}>{item}</Text>
-                                    <Text style={styles.titleNombreMesa}>A cargo de: </Text>
-                                    <Text style={styles.titleNombreMesa}>Estado: Desocupada</Text>
-                                </View>
-                                <View style={styles.column}>
-                                    <TouchableOpacity onPress={IrPedido}>
-                                        <Image
-                                            source={require("../assets/mesa.png")}
-                                            style={styles.mesa} />
-                                    </TouchableOpacity>
-                                    <TouchableHighlight
-                                        style={styles.button}
-                                        activeOpacity={0.6}
-                                        underlayColor="#DDDDDD" onPress={IrMenu}>
-                                        <Text></Text>
-                                    </TouchableHighlight>
+    fetchMesas(); // Fetch immediately
 
-                                </View>
+    const intervalId = setInterval(fetchMesas, 10000); // Fetch every 10 seconds
+
+    return () => clearInterval(intervalId); // Clean up on component unmount
+}, []);
+
+  const IrMenu = () => navigation.navigate("Menu");
+  const IrPedido = () => navigation.navigate("Pedido");
+
+  return (
+    <ImageBackground
+        source={require("../assets/fondo2.png")}
+        style={styles.backgroundImage}
+    >
+        <SafeAreaView style={styles.container4}>
+            <SectionList
+                sections={data ? data.map((item, index) => ({ title: 'Mesa ' + (index + 1), data: [item] })) : []}
+                keyExtractor={(item, index) => item + index}
+                renderItem={({ item }) => (
+                    <View style={styles.formContainer2}>
+                        <View style={styles.container3}>
+                            <View style={styles.column}>
+                                <Text style={styles.titleNumMesa}>Mesa {item.numeroMesa}</Text>
+                                <Text style={styles.titleNombreMesa}>Estado: {item.estado}</Text>
+                                <Text style={styles.titleNombreMesa}>Número de sillas: {item.numeroSillas}</Text>
                             </View>
-
+                            <View style={styles.column}>
+                                <TouchableOpacity onPress={IrPedido}>
+                                    <Image
+                                        source={require("../assets/mesa.png")}
+                                        style={styles.mesa} />
+                                </TouchableOpacity>
+                                <TouchableHighlight
+                                    style={styles.button}
+                                    activeOpacity={0.6}
+                                    underlayColor="#DDDDDD" onPress={IrMenu}>
+                                    <Text></Text>
+                                </TouchableHighlight>
+                            </View>
                         </View>
-                    )}
-                />
-            </SafeAreaView>
-        </ImageBackground>
-    );
+                    </View>
+                )}
+            />
+        </SafeAreaView>
+    </ImageBackground>
+  );
 };
 
 
