@@ -248,14 +248,17 @@ const styles = StyleSheet.create({
 
     titleMesas: {
         color: "rgba(255, 255, 255, 100)",
-        fontSize: 50,
+        fontSize: 35,
         fontWeight: "bold",
-        marginRight: "50%",
+        marginRight: "40%",
+        marginTop: 5,
     },
 
     logo: {
         width: 60,
         height: 60,
+        marginStart: 10,
+
     },
 
     container2: {

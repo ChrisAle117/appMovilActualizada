@@ -45,11 +45,11 @@ function MesasDisponibles() {
             });
     };
 
-    fetchMesas(); // Fetch immediately
+    fetchMesas(); 
 
-    const intervalId = setInterval(fetchMesas, 10000); // Fetch every 10 seconds
+    const intervalId = setInterval(fetchMesas, 10000); 
 
-    return () => clearInterval(intervalId); // Clean up on component unmount
+    return () => clearInterval(intervalId); 
 }, []);
 
 
@@ -145,11 +145,11 @@ function MisMesas() {
             });
     };
 
-    fetchMesas(); // Fetch immediately
+    fetchMesas();
 
-    const intervalId = setInterval(fetchMesas, 10000); // Fetch every 10 seconds
+    const intervalId = setInterval(fetchMesas, 10000); 
 
-    return () => clearInterval(intervalId); // Clean up on component unmount
+    return () => clearInterval(intervalId); 
 }, []);
 
   const IrMenu = () => navigation.navigate("Menu");

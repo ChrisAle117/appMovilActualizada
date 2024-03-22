@@ -53,13 +53,14 @@ const Login = () => {
 
     return (
 
-        //asignamos una imagen de fondo
+
+      
         <ImageBackground
           source={require("../assets/fondo.png")}
           style={styles.backgroundImage}
         >
   
-          {/*declaramos el contenedor principal*/}
+        
           <View
             style={{ flex: 1, flexDirection: "row", marginTop: '10%' }}
           >
@@ -79,12 +80,13 @@ const Login = () => {
                 <View style={styles.formContainer}>
                   <Text style={styles.titleLogin}>Sign in</Text>
                   <Text style={styles.TextLogin}>
-                    Inicie session para poder acceder a las funciones del sistema
+                    Inicie sesión para poder acceder a las funciones del sistema
                   </Text>
                   <View style={styles.inputContainer}>
                     <Icon name="user" size={20} color="green" style={styles.icon} />
                     <TextInput
                       placeholder="User"
+                      placeholderTextColor={'white'}
                       value={user}
                       onChangeText={setUser}
                       style={styles.inputForm}
@@ -94,6 +96,7 @@ const Login = () => {
                     <Icon name="lock" size={20} color="green" style={styles.icon} />
                     <TextInput
                       placeholder="Password"
+                      placeholderTextColor={'white'}
                       value={password}
                       onChangeText={setPassword}
                       style={styles.inputForm}
@@ -114,7 +117,7 @@ const Login = () => {
       );
     }
   
-    //declaramos los estilos que vamos a utilizar
+
     const styles = StyleSheet.create({
       loginButton: {
         backgroundColor: "rgba(9,43,90,100)",
@@ -195,8 +198,6 @@ const Login = () => {
         color: "rgba(255, 255, 255, 100)",
         fontSize: 35,
         fontWeight: "bold",
-       // marginLeft: 15,
-        //marginRight: "20%",
         marginTop: 5,
       },
     });
